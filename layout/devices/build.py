@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 """Regenerate ``layout/devices/index.json`` for the GF180MCU package.
 
-Run from the package root with the ICE Python bindings available:
+Run from the package root with the OpenVLSI Python bindings available:
 
-    PYTHONPATH=<ice>/build/linux/x86_64/release:<ice>/python \
+    PYTHONPATH=<openvlsi>/build/linux/x86_64/release:<openvlsi>/python \
         python3 layout/devices/build.py
 """
 
@@ -56,7 +56,7 @@ def build_library(package_root: Path) -> dict:
     layers = [streams[key] for key in sorted(streams)]
 
     return {
-        "format": "ice-layout-device-library",
+        "format": "openvlsi-layout-device-library",
         "schema_version": 2,
         "name": "GlobalFoundries GF180MCU",
         "pdk": pcells.PDK,
@@ -72,10 +72,10 @@ def _slugify(name: str) -> str:
 
 
 def write_library(library: dict, output: Path) -> None:
-    """Write the index, plus ``.icelay`` cells for fixed devices only."""
+    """Write the index, plus ``.ovlay`` cells for fixed devices only."""
     device_dir = output.parent / "fixed"
     device_dir.mkdir(parents=True, exist_ok=True)
-    for existing in device_dir.glob("*.icelay"):
+    for existing in device_dir.glob("*.ovlay"):
         existing.unlink()
     used: set[str] = set()
     cells = []
@@ -99,9 +99,9 @@ def write_library(library: dict, output: Path) -> None:
             candidate = f"{slug}_{suffix}"
             suffix += 1
         used.add(candidate.lower())
-        relative = f"fixed/{candidate}.icelay"
+        relative = f"fixed/{candidate}.ovlay"
         payload = {
-            "format": "ice-layout",
+            "format": "openvlsi-layout",
             "schema_version": 2,
             "device": {
                 "name": cell["name"],

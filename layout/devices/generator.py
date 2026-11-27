@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""GF180MCU PCell generator for ICE.
+"""GF180MCU PCell generator for OpenVLSI.
 
-ICE invokes this script with:
+OpenVLSI invokes this script with:
 
     generator.py --pdk-root <package> --module pcells --class nmos \
                         --params-file params.json --output geometry.json
 
 The actual device implementations live in ``layout/devices/pcell/pcells.py`` and use the
-``icepy`` layout builder API shipped with ICE.
+``openvlsipy`` layout builder API shipped with OpenVLSI.
 """
 
 from __future__ import annotations
@@ -18,11 +18,11 @@ import sys
 
 def main() -> int:
     try:
-        from icepy import pcells
+        from openvlsipy import pcells
     except ImportError as error:
         print(
-            "The GF180MCU PCell generator requires the ICE icepy Python module. "
-            f"Set PYTHONPATH to the ICE Python/build directories. ({error})",
+            "The GF180MCU PCell generator requires the OpenVLSI openvlsipy Python module. "
+            f"Set PYTHONPATH to the OpenVLSI Python/build directories. ({error})",
             file=sys.stderr,
         )
         return 2

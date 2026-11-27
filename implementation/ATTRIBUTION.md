@@ -10,5 +10,5 @@ platform.
 The `implementation/common/layer.map` file is the GF180MCU KLayout DEF-to-GDS layer map, extended
 with MetalTop for the 6LM stack.
 
-They are bundled with this ICE package so the physical implementation flow does
+They are bundled with this OpenVLSI package so the physical implementation flow does
 not depend on an external `OPENROAD_FLOW_SCRIPTS` checkout.

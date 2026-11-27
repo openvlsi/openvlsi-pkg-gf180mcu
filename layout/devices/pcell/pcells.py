@@ -1,14 +1,14 @@
-"""GlobalFoundries GF180MCU PCells implemented with the ICE layout API.
+"""GlobalFoundries GF180MCU PCells implemented with the OpenVLSI layout API.
 
 The classes in this module are package-local replicas of the GF180MCU device
-PCells. They only depend on ``icepy.pcells`` (the ICE layout builder runtime),
-so ICE can generate, edit, and preview them without KLayout or a global PDK
+PCells. They only depend on ``openvlsipy.pcells`` (the OpenVLSI layout builder runtime),
+so OpenVLSI can generate, edit, and preview them without KLayout or a global PDK
 installation.
 """
 
 from __future__ import annotations
 
-from icepy import pcells
+from openvlsipy import pcells
 
 
 PDK = "gf180mcuA"

@@ -12,6 +12,6 @@ The package's `LICENSE` is Apache-2.0. Directory-level details are recorded in:
 - `layout/ATTRIBUTION.md` — PCell definitions and the device index.
 - `implementation/ATTRIBUTION.md` — standard-cell, stack, RCX, and script data.
 
-The device geometry is produced by ICE's `icepy.pcells` layout builder from the
+The device geometry is produced by OpenVLSI's `openvlsipy.pcells` layout builder from the
 package-local PCell definitions; no KLayout or global PDK installation is
 required.

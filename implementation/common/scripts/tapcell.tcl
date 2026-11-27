@@ -1,5 +1,5 @@
 # GF180MCU tapcell/endcap insertion for the 9-track 5V standard-cell library.
-# ICE sources this file during floorplan. The ORFS flow normally supplies these
+# OpenVLSI sources this file during floorplan. The ORFS flow normally supplies these
 # values through environment variables; default them here so the package is
 # self-contained.
 if {![info exists ::env(TIE_CELL)]} {

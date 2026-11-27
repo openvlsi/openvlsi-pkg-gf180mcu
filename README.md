@@ -1,7 +1,7 @@
 # GlobalFoundries GF180MCU package
 
 This package provides the GlobalFoundries GF180MCU 180 nm CMOS open-source PDK
-definition for ICE. It is self-contained for simulation and the 9-track 5 V
+definition for OpenVLSI. It is self-contained for simulation and the 9-track 5 V
 digital implementation flow; it does not require Volare, CIEL, `PDK_ROOT`, or
 an external OpenROAD-flow-scripts checkout.
 
@@ -16,10 +16,10 @@ The package contains:
 ## PDK metadata
 
 The package declares a 5 nm manufacturing grid (`manufacturing_grid = 5`).
-ICE uses it as the default layout grid for new layouts.
+OpenVLSI uses it as the default layout grid for new layouts.
 
 The package declares the GF180MCU drawing and routing layers in `package.toml`
-under `[pdk]`. ICE uses these layers when the package technology is activated
+under `[pdk]`. OpenVLSI uses these layers when the package technology is activated
 for a project. The default schematic name is `gf180mcu_top`.
 
 ## Schematic symbols
@@ -32,26 +32,26 @@ The package ships sidecar definitions for core GF180MCU devices:
 - 2k poly resistor
 - 2.0 fF/um2 MIM capacitor
 
-The sidecars reference ICE's shared artwork with `generic:<file>.svg`, so the
+The sidecars reference OpenVLSI's shared artwork with `generic:<file>.svg`, so the
 package does not include duplicate SVG files.
 
 ## Layout PCells
 
-The package ships ICE-native PCell replicas under `layout/devices/`:
+The package ships OpenVLSI-native PCell replicas under `layout/devices/`:
 
 - `layout/devices/pcell/pcells.py` implements the GF180MCU PCell families with
-  the `icepy.pcells` layout builder API (MOS, BJT, MOS/MIM capacitors, diodes,
+  the `openvlsipy.pcells` layout builder API (MOS, BJT, MOS/MIM capacitors, diodes,
   and the full poly/diffusion/well/metal resistor family).
 - `layout/devices/index.json` indexes the parameterized device library used by
   the Devices panel. These PCells are implemented by
   `layout/devices/pcell/pcells.py` and `layout/devices/generator.py`, so they
   have no stored geometry snapshot. Fixed devices, when present, are stored as
-  `layout/devices/fixed/*.icelay`.
+  `layout/devices/fixed/*.ovlay`.
 - `layout/devices/generator.py` regenerates geometry when a parameter changes.
 - `layout/devices/build.py` rebuilds the index from the PCell definitions.
 
 The device library also records the GF180MCU purpose datatypes: `dummy`
-(4), `label` (10), `slot` (3), and `block` (5) for the metal layers. ICE groups
+(4), `label` (10), `slot` (3), and `block` (5) for the metal layers. OpenVLSI groups
 these under their base layer number and keeps non-drawing purposes hidden by
 default.
 
@@ -59,7 +59,7 @@ The PCells do not require KLayout, Volare, CIEL, or `PDK_ROOT`. Regenerate the
 library after editing `layout/devices/pcell/pcells.py`:
 
 ```text
-PYTHONPATH=<ice>/build/linux/x86_64/release:<ice>/python \
+PYTHONPATH=<openvlsi>/build/linux/x86_64/release:<openvlsi>/python \
   python3 layout/devices/build.py
 ```
 
@@ -87,4 +87,4 @@ The default stack is `5LM_1TM`; the default corner is `tt`. No
 
 The package declares `[pdk.simulation]` in `package.toml`: `design.ngspice`,
 `sm141064.ngspice`, section `typical`, and the GF180MCU NMOS/PMOS device names.
-Verify with `ice-cli pdk-info gf180mcuA --probe`.
+Verify with `openvlsi-cli pdk-info gf180mcuA --probe`.
